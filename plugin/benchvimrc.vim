@@ -1,3 +1,13 @@
+scriptencoding utf-8
+
+if exists('g:loaded_benchvimrc')
+  finish
+endif
+let g:loaded_benchvimrc = 1
+
+let s:save_cpo = &cpo
+set cpo&vim
+
 function! s:add_point(s, l)
   if a:s =~ '^\s*\w' && a:s !~ '^\s*\(en\|if\|el\)'
     let r = join([
@@ -50,3 +60,6 @@ function! s:benchvimrc(...)
 endfunction
 
 command! -nargs=? -complete=file BenchVimrc call s:benchvimrc(<f-args>)
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
